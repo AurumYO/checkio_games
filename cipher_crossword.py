@@ -1,47 +1,57 @@
 def checkio(crossword, words):
 
-
-    line_numbers = []
-    for i in range(len(crossword)):
-        if 0 not in crossword[i]:
-            line_numbers.append(crossword[i])
-    diognal = []
-    for i in range(len(crossword)):
-        for j in range(len(crossword)):
-            if crossword[j][i] != 0:
-                diognal.append(crossword[j][i])
-        if len(diognal) >= len(min(words)):
-            line_numbers.append(diognal)
+    def lines_graph(crossword, words):
+        # find ciphered all lines with words
+        line_numbers = []
+        for i in range(len(crossword)):
+            if 0 not in crossword[i]:
+                line_numbers.append(crossword[i])
         diognal = []
-
-    print(line_numbers)
-
-    letters_dict = {}
-    for word in words:
-        for let in word:
-            if let not in letters_dict.keys():
-                letters_dict[let] = 1
-            else:
-                letters_dict[let] += 1
-    print(letters_dict)
+        for i in range(len(crossword)):
+            for j in range(len(crossword)):
+                if crossword[j][i] != 0:
+                    diognal.append(crossword[j][i])
+            if len(diognal) >= len(min(words)):
+                line_numbers.append(diognal)
+            diognal = []
+        # print(line_numbers)  # display all ciphered words
+        return line_numbers
 
 
-    # num_dict = {}
-    # for line in crossword:
-    #     for n in line:
-    #         if n == 0:
-    #             num_dict[' '] = ' '
-    #         elif n not in num_dict.keys():
-    #             num_dict[n] = 1
-    #         else:
-    #             num_dict[n] += 1
-    # for k, v in letters_dict.items():
-    #     for num, occ in num_dict.items():
-    #         if v == occ:
-    #             print('letter', k, 'has num', num)
-    #
-    # print( letters_dict, num_dict)
+    def letters_dict(crossword):
+        crossword_letters = {}
+        for i in range(len(crossword)-1):
+            for d in crossword[i]:
+                if d not in crossword_letters.keys():
+                    crossword_letters[d] = None
+        return crossword_letters
+
+
+    def words_lister(words):
+        words_list = [[] for i in range(len(words)-1)]
+        for i in range(len(words)-1):
+            for char in words[i]:
+                words_list[i].append(char)
+        # print(words_list)
+        return words_list
+
+    wl = words_lister( words )
+    ld = letters_dict(crossword)
+    ln = lines_graph( crossword, words )
+
+    print(ld)
+    print(crossword)
+    print(wl)
+    print( ln )
+
+
+
+
     return None
+
+
+
+
 
 
 if __name__ == '__main__':
