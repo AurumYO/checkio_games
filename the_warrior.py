@@ -17,8 +17,16 @@ class Knight(Warrior):
 
 
 def fight(unit_1, unit_2):
-    print(carl.health)
-    return 0
+    unit_2.health = unit_2.health - unit_1.attack
+    while unit_2.is_alive and unit_1.is_alive:
+        unit_1.health = unit_1.health - unit_2.attack
+        unit_2.health = unit_2.health - unit_1.attack
+
+    if unit_1.is_alive:
+        return True
+    else:
+        return False
+
 
 if __name__ == '__main__':
     #These "asserts" using only for self-checking and not necessary for auto-testing
